@@ -258,100 +258,6 @@ class AdventureManager {
         return this.statesTable.getString(this.currentState, 'ClassName');
     }
 
-    checkPlayerSprite() {
-        if( this.playerSprite === null ) {
-            return;
-        }
-        let direction = this.checkSpriteBounds();
-        
-        // empty string returned if we are in the room still
-        if( direction !== "") {
-            let stateChanged = false;
-
-            // go through each row, look for a match to the current state
-            for (let i = 0; i < this.interactionTable.getRowCount(); i++) {
-                 // the .name property of a function will convert function to string for comparison
-                if(this.currentStateName === this.interactionTable.getString(i, 'CurrentState') ) {
-                    // now, look for a match with the direction, converting it to a string
-                    if( direction === this.interactionTable.getString(i, 'MapDirection') ) {
-                        // if a match, set the drawFunction to the next state, eval() converts
-                        // string to function
-                        this.changeState(this.interactionTable.getString(i, 'NextState') );
-                        stateChanged = true; 
-
-                        this.adjustSpriteForRoom();
-                        break;
-                    }
-                }
-            }
-            
-            // state never changed, so we stick at edge
-            if( !stateChanged ) {
-                this.constrainSpriteBounds();
-            }
-        }
-    }
-
-    // return direction we are out of bounds to match interaction map
-    checkSpriteBounds() {
-        if( this.playerSprite == null ) {
-            return "";
-        }
-
-        if( this.playerSprite.position.x < -1 ) {
-            return "W";
-        }
-        else if( this.playerSprite.position.x > width ) {
-            return "E";
-        }
-        else if( this.playerSprite.position.y < -1 ) {
-            return "N";
-        }
-        else if( this.playerSprite.position.y > height ) {
-            return "S";
-        }
-
-        return "";
-    }
-
-    adjustSpriteForRoom() {
-        if( this.playerSprite === null ) {
-            return;
-        }
-
-        if( this.playerSprite.position.x < -1 ) {
-            this.playerSprite.position.x = width;
-        }
-        else if( this.playerSprite.position.x > width ) {
-            this.playerSprite.position.x = 0;
-        }
-        else if( this.playerSprite.position.y < -1 ) {
-            this.playerSprite.position.y = height;
-        }
-        else if( this.playerSprite.position.y > height ) {
-            this.playerSprite.position.y = 0;
-        }
-    }
-
-    // no room, constrain to edges
-    constrainSpriteBounds() {
-        if( this.playerSprite === null ) {
-            return;
-        }
-
-        if(this.playerSprite.position.x < -1 ) {
-            this.playerSprite.position.x = 0;
-        }
-        else if(this.playerSprite.position.x > width+1 ) {
-            this.playerSprite.position.x = width;
-        }
-        else if(this.playerSprite.position.y < -1 ) {
-            this.playerSprite.position.y = 0;
-        }
-        else if(this.playerSprite.position.y > height ) {
-            this.playerSprite.position.y = height;
-        }
-    }
 
     // returns the "short" filename (no precesing directory for the current state)
     getPNGFilename() {
@@ -388,50 +294,6 @@ class AdventureManager {
                // print("set to hide");
             }
         }
-    }
-}
-
-// this will be used with the loadTable() callback for the collision table
-// class variables are not available for callbacks
-// need a global variable with a ridiculous name to avoid name conflicts
-// save the this data
-var PNGRoomPushedThisArray = [];
-
-function PNGRoomFindTheThis() {
-    for( let i = 0; i < PNGRoomPushedThisArray.length; i++ ) {
-        // do stuff
-        if( PNGRoomPushedThisArray[i].collisionTableLoaded === false ) {
-            return PNGRoomPushedThisArray[i];
-        }
-    }
-
-    // test return
-    return null;
-}
-
-function PNGCollisionTableLoaded() {
-    print("PNGCollisionTableLoaded() callback");
-    let pThis = PNGRoomFindTheThis();
-    if(pThis === null ) {
-        print("Couldn't find the This");
-    }
-    else {
-        print("pThis.stateName = " + pThis.stateName );
-    }
-
-     if( pThis.collisionTable !== null) { 
-        print("Collision table row count = " + pThis.collisionTable.getRowCount());
-        for( let i = 0; i < pThis.collisionTable.getRowCount(); i++ ) {
-            pThis.collisionSX[i] = pThis.collisionTable.getString(i, 'sx');
-            pThis.collisionSY[i] = pThis.collisionTable.getString(i, 'sy');
-            pThis.collisionEX[i] = pThis.collisionTable.getString(i, 'ex');
-            pThis.collisionEY[i] = pThis.collisionTable.getString(i, 'ey');
-        }
-
-        pThis.collisionTableLoaded = true;
-    }
-    else {
-        print("No collision table loaded");
     }
 }
 
@@ -525,26 +387,7 @@ class PNGRoom {
     }
 
     // Go through our array and ook to see if we are in bounds anywhere
-    checkForCollision(ps) {
-        if( ps !== null ) {  
-            for(let i = 0; i < this.collisionSX.length; i++ ) {
-                if( ps.position.x >= this.collisionSX[i] &&  ps.position.x <= this.collisionEX[i] ) {
-                    if( ps.position.y >= this.collisionSY[i] &&  ps.position.y <= this.collisionEY[i] ) {
-                        //print("collsion at shape " + i);
-                        return true;
-                    }
-                }
-            }
-        }
 
-        return false; 
-    }
-
-    
-    // output to DebugScreen or console window, if we have no debug object
-    output(s) {
-        print(s);
-    }
 }
 
 

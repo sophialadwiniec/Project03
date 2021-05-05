@@ -70,9 +70,9 @@ function Clickable() {
 	this.text = "Press Me";		//Text of the clickable
 	this.textColor = "#000000";	//Color for the text shown
 	this.textSize = 12;		//Size for the text shown
-	this.textFont = "sans-serif";	//Font for the text shown
+	this.textFont = loadFont('fonts/OmegleRegular-gxDaq.otf');	//Font for the text shown
 	this.textScaled = false;     //Scale the text with the size of the clickable
-	
+	this.nextState = ""; 
 	// image options
 	this.image = null; // image object from p5loadimage()
 	this.tint = null; // tint image using color
