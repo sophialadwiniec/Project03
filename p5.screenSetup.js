@@ -45,13 +45,39 @@ class screenSetup  {
         for( let i = 0; i < this.textTable.getRowCount(); i++ ) {
             //setting the textMap
             var screenName = this.textTable.getString(i, 'ScreenName');
+
+            var textList = []; 
             var text = this.textTable.getString(i, 'Text'); 
+            textList.push(text); 
+           
+            if(this.textTable.getString(i,'Text2') !== undefined) {
+                textList.push(this.textTable.getString(i,'Text2')); 
+            }
+            if(this.textTable.getString(i,'Text3') !== undefined) {
+                textList.push(this.textTable.getString(i,'Text3')); 
+            }
+            if(this.textTable.getString(i,'Text4') !== undefined) {
+                textList.push(this.textTable.getString(i,'Text4')); 
+            }
+            if(this.textTable.getString(i,'Text5') !== undefined) {
+                textList.push(this.textTable.getString(i,'Text5')); 
+            }
+            if(this.textTable.getString(i,'Text6') !== undefined) {
+                textList.push(this.textTable.getString(i,'Text6')); 
+            }
+            if(this.textTable.getString(i,'Text7') !== undefined) {
+                textList.push(this.textTable.getString(i,'Text7')); 
+            }
+            if(this.textTable.getString(i,'Text8') !== undefined) {
+                textList.push(this.textTable.getString(i,'Text8')); 
+            }
+
             var textSize = eval(this.textTable.getString(i, 'TextSize')); 
             var x = eval(this.textTable.getString(i, 'x')); 
             var y = eval(this.textTable.getString(i, 'y')); 
 
             if(this.textTable.getString(i, 'ClassName') === "Screen") {
-                var screen = new Screen(screenName, text, textSize, x, y); 
+                var screen = new Screen(screenName, textList, textSize, x, y); 
                 // this.states.push(screen); 
                 screen.buttonList = this.buttonMap.get(screenName); 
                 

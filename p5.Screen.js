@@ -19,6 +19,11 @@ class Screen {
         fill(255); 
         textSize(this.textSize); 
         textFont(this.font); 
-        text(this.text, this.x, this.y); 
+        var add = 0; 
+        for(let i = 0; i < this.text.length; i++){
+            text(this.text[i],this.x, this.y + add); 
+            add+=60; 
+        }
+        //text(this.text, this.x, this.y); 
     }
 }
