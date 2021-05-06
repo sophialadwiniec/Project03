@@ -64,11 +64,11 @@ function Clickable() {
 	this.width = 100;		//Width of the clickable
 	this.height = 50;		//Height of the clickable
 	this.color = "#FFFFFF";		//Background color of the clickable
-	this.cornerRadius = 10;		//Corner radius of the clickable
-	this.strokeWeight = 2;		//Stroke width of the clickable
-	this.stroke = "#000000";	//Border color of the clickable
+	this.cornerRadius = 40;		//Corner radius of the clickable
+	this.strokeWeight = 10;		//Stroke width of the clickable
+	this.stroke = "#DFE4F2";	//Border color of the clickable
 	this.text = "Press Me";		//Text of the clickable
-	this.textColor = "#000000";	//Color for the text shown
+	this.textColor = "#DFE4F2";	//Color for the text shown
 	this.textSize = 12;		//Size for the text shown
 	this.textFont = loadFont('fonts/OmegleRegular-gxDaq.otf');	//Font for the text shown
 	this.textScaled = false;     //Scale the text with the size of the clickable
@@ -184,89 +184,3 @@ function Clickable() {
 
 	cl_clickables.push(this);
 }
-
-// ClickableManager class 
-// call constructor in the sketch.js preload() funciton
-// call setup in the  sketch.js setup() function
-class ClickableManager {
-	// Constrctor: set all member vars to defaults, string array to empty strings
-	constructor(allocatorFilename) {
-		this.clickableArray = [];
-		this.allocatorTable = loadTable(allocatorFilename, 'csv', 'header');
-	}
-
-	getClickableArray() {
-		return this.clickableArray;
-	}
-
-	// expects as .csv file with the format as outlined in the readme file
-	setup() {
-		// this could be cleaner...
-		// Make sure we have a 
-		let hasWidth = this.hasColumnData('width');
-		let hasHeight = this.hasColumnData('height');
-		let hasColor = this.hasColumnData('color');
-
-		// For each row, allocate a clickable object
-		for( let i = 0; i < this.allocatorTable.getRowCount(); i++ ) {
-			this.clickableArray[i] = new Clickable();
-			
-			// if we have an image, we will call setImage() to load that image into that p5.clickable
-			if( this.allocatorTable.getString(i, 'PNGFilename') != "" ) {
-				this.clickableArray[i].setImage(loadImage(this.allocatorTable.getString(i, 'PNGFilename'))); 
-			}
-
-			// supply the remaining fields from the .csv file
-			// IF YOU GET AN ERROR, you probably have the incorrect headers information on the CSV file
-			// especially check the case
-			this.clickableArray[i].id = parseInt(this.allocatorTable.getString(i, 'ID'));
-			this.clickableArray[i].name = this.allocatorTable.getString(i, 'Name');
-			this.clickableArray[i].x = eval(this.allocatorTable.getString(i, 'x'));
-			this.clickableArray[i].y = eval(this.allocatorTable.getString(i, 'y'));
-			if( hasWidth ) {
-				this.clickableArray[i].width = eval(this.allocatorTable.getString(i, 'width'));	
-			}
-			if( hasHeight ) {
-				this.clickableArray[i].height = eval(this.allocatorTable.getString(i, 'height'));
-			}
-			if( hasColor ) {
-				// expects hex value
-				this.clickableArray[i].color = this.allocatorTable.getString(i, 'color');
-			}
-
-			this.clickableArray[i].text = this.allocatorTable.getString(i, 'Text')
-			
-		}
-	
-		return this.clickableArray;
-	}
-
-	// draw all clickables (visible now in the draw function)
-	draw() {
-		for( let i = 0; i < this.clickableArray.length; i++ ) {
-			this.clickableArray[i].draw();
-		}
-	}
-
-	// given a column name and cell, will get the String value associated with it
-	getAttribute(rowNum,attStr) {
-		// return empty string if we are out of bounds
-		if( rowNum < 0 || rowNum >= this.allocatorTable.getRowCount()) {
-			return "";
-		}
-		
-		return this.allocatorTable.getString(rowNum, attStr);
-	}
-
-	//-- Internal --/
-	// Weird way to check to see if the column actually has data or not, but it works...
-	hasColumnData(headerStr) {
-		let arr = this.allocatorTable.getColumn(headerStr);
-		if( this.allocatorTable.getRowCount() === 0 || arr[0] === undefined) {
-			print( "No " + headerStr + " parameter in clickables Layout");
-			return false;
-		}
-
-		return true;
-	}
- }

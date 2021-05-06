@@ -43,7 +43,6 @@ class screenSetup  {
         }
 
         for( let i = 0; i < this.textTable.getRowCount(); i++ ) {
-            //setting the textMap
             var screenName = this.textTable.getString(i, 'ScreenName');
 
             var textList = []; 
@@ -78,12 +77,9 @@ class screenSetup  {
 
             if(this.textTable.getString(i, 'ClassName') === "Screen") {
                 var screen = new Screen(screenName, textList, textSize, x, y); 
-                // this.states.push(screen); 
-                screen.buttonList = this.buttonMap.get(screenName); 
-                
+                screen.buttonList = this.buttonMap.get(screenName);  
                 screen.preload(); 
                 this.stateMap.set(screenName, screen); 
-                // print(this.stateMap); 
                 if(i == 0) {
                     this.currentState = screen; 
                     this.currentStateString = screenName; 
@@ -93,12 +89,15 @@ class screenSetup  {
 
   
     }
+
     setState(state) {
         print(this.currentState); 
         this.currentState = this.stateMap.get(state); 
         this.currentStateString = state; 
     }
+
     draw() {
+        background("#0D688C"); 
         this.currentState.draw(); 
     }
 

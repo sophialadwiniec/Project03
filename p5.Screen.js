@@ -15,15 +15,14 @@ class Screen {
     }
 
     draw() {
-        background(0); 
-        fill(255); 
+        background("#0D688C"); 
         textSize(this.textSize); 
         textFont(this.font); 
+        fill("#DFE4F2"); 
         var add = 0; 
         for(let i = 0; i < this.text.length; i++){
             text(this.text[i],this.x, this.y + add); 
             add+=60; 
         }
-        //text(this.text, this.x, this.y); 
     }
 }

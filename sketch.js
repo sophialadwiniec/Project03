@@ -14,12 +14,13 @@ function setup() {
 
 // Adventure manager handles it all!
 function draw() {
-  background(0); 
   screenManager.draw();
   var buttonList =  screenManager.currentState.buttonList;
   for(let i = 0; i < buttonList.length; i++) {
     buttonList[i].draw(); 
     buttonList[i].onPress = clickableButtonPressed; 
+    buttonList[i].onHover = clickableButtonHover; 
+    buttonList[i].onOutside = clickableButtonOnOutside; 
   }
 }
 // function setupClickables() {
@@ -30,18 +31,18 @@ function draw() {
 //   }
 // }
 
-// // tint when mouse is over
-// clickableButtonHover = function () {
-//   this.color = "#AA33AA";
-//   this.noTint = false;
-//   this.tint = "#FF0000";
-// }
+// tint when mouse is over
+clickableButtonHover = function () {
+  this.color = "#D99AAB";
+  // this.noTint = false;
+  // this.tint = "#FF0000";
+}
 
-// // color a light gray if off
-// clickableButtonOnOutside = function () {
-//   // backto our gray color
-//   this.color = "#AAAAAA";
-// }
+// color a light gray if off
+clickableButtonOnOutside = function () {
+  // backto our gray color
+  this.color = "#0889A6";
+}
 
 clickableButtonPressed = function() {
   screenManager.setState(this.nextState);
