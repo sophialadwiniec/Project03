@@ -85,15 +85,67 @@ class screenSetup  {
                     this.currentStateString = screenName; 
                 }
             }
-        }
 
-  
+            if(this.textTable.getString(i, 'ClassName') === "characterScreen") {
+                var cs = new characterScreen(screenName, textList, textSize, x, y); 
+                
+                cs.buttonList = this.buttonMap.get(screenName);  
+                cs.preload(); 
+                this.stateMap.set(screenName, cs); 
+            }
+        }
     }
 
     setState(state) {
         print(this.currentState); 
         this.currentState = this.stateMap.get(state); 
+        this.currentState.setup(); 
         this.currentStateString = state; 
+    }
+
+    parseText(name, vName, vName2) {
+        for(let value of this.stateMap.values()) {
+             
+            for(let i = 0; i < value.text.length; i++){
+                var new_text = "";
+                let split_text = split(value.text[i], " "); 
+                // print(split_text); 
+                for(let j = 0; j < split_text.length; j++){
+                    if(split_text[j] === vName || split_text[j] == vName2) {
+                        new_text += (name + " "); 
+                        // print("GOT A MATCH"); 
+                        // print("HELLLOOOOOOOO"); 
+                    } else {
+                        new_text += (split_text[j] + " "); 
+                    }
+                }
+                value.text[i] = new_text;  
+            } 
+        }
+    }
+
+    parseButtons(name, vName, vName2) {
+        for(let value of this.buttonMap.values()) {
+            
+
+            for(let i = 0; i < value.length; i++){
+                var new_text = ""; 
+                var split_text = split(value[i].text, " "); 
+                print(split_text); 
+                for(let j = 0; j < split_text.length; j++){
+                    if(split_text[j] === vName || split_text[j] == vName2) {
+                        new_text += (name + " "); 
+                        print("GOT A MATCH"); 
+                        print("HELLLOOOOOOOO"); 
+                    } else {
+                        new_text += (split_text[j] + " "); 
+                    }
+                }
+                value[i].text = new_text; 
+            }
+            
+            
+        }
     }
 
     draw() {

@@ -10,12 +10,16 @@ class Screen {
         this.buttonList = [];
     }
 
+    setup() {
+        background("#0D688C"); 
+    }
+
     preload() {
         this.font = loadFont('fonts/OmegleRegular-gxDaq.otf');
     }
 
     draw() {
-        background("#0D688C"); 
+       
         textSize(this.textSize); 
         textFont(this.font); 
         fill("#DFE4F2"); 
@@ -26,3 +30,26 @@ class Screen {
         }
     }
 }
+
+
+class characterScreen extends Screen {
+
+    constructor(stateName, text, textSize, x, y){
+        super(stateName, text, textSize, x, y); 
+    }
+  
+    setup() {
+      super.setup(); 
+    }
+  
+  
+    draw() {
+        super.draw(); 
+        textSize(32); 
+        text("Enter your character name:", 300, 170); 
+        text("Enter friend1's name:", 390, 320); 
+        text("Enter friend2's name:", 390, 470); 
+        text("Enter your crush's name:", 340, 620);
+    }
+
+  }
