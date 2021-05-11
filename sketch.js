@@ -1,17 +1,22 @@
 var screenManager;
 var checkCharacterScreen = true;
+// input boxes 
 var characterName; 
 var friend1Name; 
 var friend2Name; 
 var crushName; 
+// clickables for just the character screen 
 var b1; 
 var b2; 
 var b3; 
 var b4; 
+// button map to match the clickable with the right word to replace
 var buttonMap;  
+// var textWatch; 
 
 function preload() {
   screenManager = new screenSetup('data/textTable.csv', 'data/buttonTable.csv'); 
+  // textWatch = loadImage('assets/angry watch.png')
 }
 
 
@@ -34,6 +39,8 @@ function setup() {
   b4 = new Clickable(); 
   buttonMap.set(b4, "Danny"); 
 
+  
+
   var y = 150; 
   for(let key of buttonMap.keys()) {
     var button = key; 
@@ -50,6 +57,7 @@ function setup() {
 }
 
 function draw() {
+  
   screenManager.draw();
   var buttonList =  screenManager.currentState.buttonList;
   for(let i = 0; i < buttonList.length; i++) {
@@ -88,6 +96,8 @@ function draw() {
       key.onPress = clickableButtonPressed; 
     }
   }
+  // image(textWatch,822, 28, 172, 122); 
+  // image(textWatch,1070, 28, 172, 122); 
 }
 
 clickableButtonHover = function () {

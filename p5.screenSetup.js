@@ -6,6 +6,7 @@ class screenSetup  {
         this.currentState;
         this.stateMap = new Map(); 
         this.buttonMap = new Map(); 
+        this.background = loadImage('assets/Background.png'); 
     }
 
     setup() {
@@ -109,12 +110,10 @@ class screenSetup  {
             for(let i = 0; i < value.text.length; i++){
                 var new_text = "";
                 let split_text = split(value.text[i], " "); 
-                // print(split_text); 
+                
                 for(let j = 0; j < split_text.length; j++){
                     if(split_text[j] === vName || split_text[j] == vName2) {
                         new_text += (name + " "); 
-                        // print("GOT A MATCH"); 
-                        // print("HELLLOOOOOOOO"); 
                     } else {
                         new_text += (split_text[j] + " "); 
                     }
@@ -131,12 +130,10 @@ class screenSetup  {
             for(let i = 0; i < value.length; i++){
                 var new_text = ""; 
                 var split_text = split(value[i].text, " "); 
-                print(split_text); 
+
                 for(let j = 0; j < split_text.length; j++){
                     if(split_text[j] === vName || split_text[j] == vName2) {
                         new_text += (name + " "); 
-                        print("GOT A MATCH"); 
-                        print("HELLLOOOOOOOO"); 
                     } else {
                         new_text += (split_text[j] + " "); 
                     }
@@ -150,6 +147,7 @@ class screenSetup  {
 
     draw() {
         background("#0D688C"); 
+        image(this.background,0,0); 
         this.currentState.draw(); 
     }
 
