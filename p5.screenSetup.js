@@ -7,6 +7,7 @@ class screenSetup  {
         this.stateMap = new Map(); 
         this.buttonMap = new Map(); 
         this.background = loadImage('assets/Background.png'); 
+        this.imageMap = new Map(); 
     }
 
     setup() {
@@ -50,25 +51,25 @@ class screenSetup  {
             var text = this.textTable.getString(i, 'Text'); 
             textList.push(text); 
            
-            if(this.textTable.getString(i,'Text2') !== undefined) {
+            if(this.textTable.getString(i,'Text2') !== "") {
                 textList.push(this.textTable.getString(i,'Text2')); 
             }
-            if(this.textTable.getString(i,'Text3') !== undefined) {
+            if(this.textTable.getString(i,'Text3') !== "") {
                 textList.push(this.textTable.getString(i,'Text3')); 
             }
-            if(this.textTable.getString(i,'Text4') !== undefined) {
+            if(this.textTable.getString(i,'Text4') !== "") {
                 textList.push(this.textTable.getString(i,'Text4')); 
             }
-            if(this.textTable.getString(i,'Text5') !== undefined) {
+            if(this.textTable.getString(i,'Text5') !== "") {
                 textList.push(this.textTable.getString(i,'Text5')); 
             }
-            if(this.textTable.getString(i,'Text6') !== undefined) {
+            if(this.textTable.getString(i,'Text6') !== "") {
                 textList.push(this.textTable.getString(i,'Text6')); 
             }
-            if(this.textTable.getString(i,'Text7') !== undefined) {
+            if(this.textTable.getString(i,'Text7') !== "") {
                 textList.push(this.textTable.getString(i,'Text7')); 
             }
-            if(this.textTable.getString(i,'Text8') !== undefined) {
+            if(this.textTable.getString(i,'Text8') !== "") {
                 textList.push(this.textTable.getString(i,'Text8')); 
             }
 
@@ -84,6 +85,22 @@ class screenSetup  {
                 if(i == 0) {
                     this.currentState = screen; 
                     this.currentStateString = screenName; 
+                }
+
+                if(this.textTable.getString(i, "watch1") !== "") {
+                    var img = loadImage(this.textTable.getString(i, "watch1")); 
+                    var img_list = []; 
+                    img_list.push(img); 
+                    // this.imageMap.set(screenName, img_list); 
+                    if(this.textTable.getString(i, "watch2") !== "") {
+                        img = loadImage(this.textTable.getString(i, "watch2")); 
+                        img_list.push(img); 
+                    }
+                    screen.img_list = img_list; 
+                }
+
+                if(this.textTable.getString(i, "textW") !== ""){
+                    screen.otherName = this.textTable.getString(i, "textW"); 
                 }
             }
 
@@ -145,10 +162,25 @@ class screenSetup  {
         }
     }
 
+    changeCharacterName(name){
+        for(let value of this.stateMap.values()) {
+            value.characterName = name; 
+        }
+    }
+
+    changeOtherName(name, vName) {
+        for(let value of this.stateMap.values()) {
+            if(value.otherName === vName) {
+                value.otherName = name; 
+            }
+        }
+    }
+
     draw() {
         background("#0D688C"); 
         image(this.background,0,0); 
         this.currentState.draw(); 
+
     }
 
 }

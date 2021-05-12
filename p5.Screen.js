@@ -8,6 +8,9 @@ class Screen {
         this.y = y; 
         this.font; 
         this.buttonList = [];
+        this.img_list = []; 
+        this.characterName = "you"; 
+        this.otherName = ""; 
     }
 
     setup() {
@@ -27,6 +30,19 @@ class Screen {
         for(let i = 0; i < this.text.length; i++){
             text(this.text[i],this.x, this.y + add); 
             add+=60; 
+        }
+
+        if(this.img_list.length !== 0) {
+            var x = 822; 
+            for(let i = 0; i < this.img_list.length; i++) {
+                image(this.img_list[i], x, 28, 172, 122); 
+                x+= 230; 
+            }
+            text( this.characterName,893 - (this.characterName.length * 1.5), 175); 
+            
+            if(this.img_list.length > 1) {
+                text(this.otherName, 822 + 230 - this.otherName.length, 175); 
+            }
         }
     }
 }

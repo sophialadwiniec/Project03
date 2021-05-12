@@ -12,11 +12,9 @@ var b3;
 var b4; 
 // button map to match the clickable with the right word to replace
 var buttonMap;  
-// var textWatch; 
 
 function preload() {
   screenManager = new screenSetup('data/textTable.csv', 'data/buttonTable.csv'); 
-  // textWatch = loadImage('assets/angry watch.png')
 }
 
 
@@ -59,15 +57,18 @@ function setup() {
 function draw() {
   
   screenManager.draw();
-  var buttonList =  screenManager.currentState.buttonList;
-  for(let i = 0; i < buttonList.length; i++) {
-    buttonList[i].draw(); 
-    buttonList[i].pressed = true; 
-    buttonList[i].onPress = clickableButtonPressed; 
-    buttonList[i].onHover = clickableButtonHover; 
-    buttonList[i].onOutside = clickableButtonOnOutside; 
+  if(screenManager.currentState.buttonList !== undefined){ 
+    var buttonList =  screenManager.currentState.buttonList;
+    for(let i = 0; i < buttonList.length; i++) {
+      buttonList[i].draw(); 
+      buttonList[i].pressed = true; 
+      buttonList[i].onPress = clickableButtonPressed; 
+      buttonList[i].onHover = clickableButtonHover; 
+      buttonList[i].onOutside = clickableButtonOnOutside; 
+    }
+  
   }
-
+ 
   if (screenManager.currentStateString === "ChooseCharacter" && checkCharacterScreen == true) {
    characterName = createInput(); 
    characterName.position(700,150); 
@@ -96,8 +97,7 @@ function draw() {
       key.onPress = clickableButtonPressed; 
     }
   }
-  // image(textWatch,822, 28, 172, 122); 
-  // image(textWatch,1070, 28, 172, 122); 
+
 }
 
 clickableButtonHover = function () {
@@ -135,22 +135,26 @@ clickableButtonPressed = function() {
       this.pressed = false; 
       screenManager.parseText(friend1Name.value(), "friend1", "Friend1"); 
       screenManager.parseButtons(friend1Name.value(), "friend1", "Friend1"); 
+      screenManager.changeOtherName(friend1Name.value(), "Friend1"); 
     }
     if(buttonMap.get(this) === "friend2" && this.pressed === true) {
       print(friend2Name.value()); 
       this.pressed = false; 
       screenManager.parseText(friend2Name.value(), "friend2", "Friend2"); 
       screenManager.parseButtons(friend2Name.value(), "friend2", "Friend2"); 
+      screenManager.changeOtherName(friend2Name.value(), "Friend2"); 
     }
     if(buttonMap.get(this) === "Danny" && this.pressed === true) {
       print(crushName.value()); 
       this.pressed = false; 
       screenManager.parseText(crushName.value(), "Danny", "Danny"); 
       screenManager.parseButtons(crushName.value(), "Danny", "Danny"); 
+      screenManager.changeOtherName(crushName.value(), "Danny"); 
     }
     if(buttonMap.get(this) === "characterName" && this.pressed === true) {
       print(characterName.value()); 
       this.pressed = false; 
+      screenManager.changeCharacterName(characterName.value()); 
     }
   }
   
