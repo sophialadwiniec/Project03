@@ -72,6 +72,9 @@ class screenSetup  {
             if(this.textTable.getString(i,'Text8') !== "") {
                 textList.push(this.textTable.getString(i,'Text8')); 
             }
+            if(this.textTable.getString(i,'Text9') !== "") {
+                textList.push(this.textTable.getString(i,'Text9')); 
+            }
 
             var textSize = eval(this.textTable.getString(i, 'TextSize')); 
             var x = eval(this.textTable.getString(i, 'x')); 
@@ -159,20 +162,6 @@ class screenSetup  {
             }
             
             
-        }
-    }
-
-    changeCharacterName(name){
-        for(let value of this.stateMap.values()) {
-            value.characterName = name; 
-        }
-    }
-
-    changeOtherName(name, vName) {
-        for(let value of this.stateMap.values()) {
-            if(value.otherName === vName) {
-                value.otherName = name; 
-            }
         }
     }
 

@@ -13,14 +13,26 @@ var b4;
 // button map to match the clickable with the right word to replace
 var buttonMap;  
 
+var phone; 
+var p1, p2; 
+
 function preload() {
   screenManager = new screenSetup('data/textTable.csv', 'data/buttonTable.csv'); 
+  p1 = loadImage('assets/p1.png'); 
+   
+  p2 = loadImage('assets/p2.png'); 
+  
+  
 }
 
 
 function setup() {
   createCanvas(1280, 720);
   screenManager.setup(); 
+
+  p1.resize(150,240);
+  p2.resize(123,200); 
+  // phone = loadAnimation(p1, p1, p1, p1,p1,p1,p1,p2, p2, p2, p2, p2, p2); 
 
   buttonMap = new Map(); 
   b1 = new Clickable(); 
@@ -57,6 +69,7 @@ function setup() {
 function draw() {
   
   screenManager.draw();
+  // animation(phone,100,100); 
   if(screenManager.currentState.buttonList !== undefined){ 
     var buttonList =  screenManager.currentState.buttonList;
     for(let i = 0; i < buttonList.length; i++) {
@@ -135,26 +148,22 @@ clickableButtonPressed = function() {
       this.pressed = false; 
       screenManager.parseText(friend1Name.value(), "friend1", "Friend1"); 
       screenManager.parseButtons(friend1Name.value(), "friend1", "Friend1"); 
-      screenManager.changeOtherName(friend1Name.value(), "Friend1"); 
     }
     if(buttonMap.get(this) === "friend2" && this.pressed === true) {
       print(friend2Name.value()); 
       this.pressed = false; 
       screenManager.parseText(friend2Name.value(), "friend2", "Friend2"); 
-      screenManager.parseButtons(friend2Name.value(), "friend2", "Friend2"); 
-      screenManager.changeOtherName(friend2Name.value(), "Friend2"); 
+      screenManager.parseButtons(friend2Name.value(), "friend2", "Friend2");  
     }
     if(buttonMap.get(this) === "Danny" && this.pressed === true) {
       print(crushName.value()); 
       this.pressed = false; 
       screenManager.parseText(crushName.value(), "Danny", "Danny"); 
       screenManager.parseButtons(crushName.value(), "Danny", "Danny"); 
-      screenManager.changeOtherName(crushName.value(), "Danny"); 
     }
     if(buttonMap.get(this) === "characterName" && this.pressed === true) {
       print(characterName.value()); 
-      this.pressed = false; 
-      screenManager.changeCharacterName(characterName.value()); 
+      this.pressed = false;  
     }
   }
   

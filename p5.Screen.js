@@ -9,7 +9,7 @@ class Screen {
         this.font; 
         this.buttonList = [];
         this.img_list = []; 
-        this.characterName = "you"; 
+        this.characterName = "You"; 
         this.otherName = ""; 
     }
 
@@ -38,10 +38,10 @@ class Screen {
                 image(this.img_list[i], x, 28, 172, 122); 
                 x+= 230; 
             }
-            text( this.characterName,893 - (this.characterName.length * 1.5), 175); 
+            text( this.characterName,880, 175); 
             
             if(this.img_list.length > 1) {
-                text(this.otherName, 822 + 230 - this.otherName.length, 175); 
+                text(this.otherName, 1100 , 175); 
             }
         }
     }
