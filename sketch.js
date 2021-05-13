@@ -13,26 +13,15 @@ var b4;
 // button map to match the clickable with the right word to replace
 var buttonMap;  
 
-var phone; 
-var p1, p2; 
 
 function preload() {
   screenManager = new screenSetup('data/textTable.csv', 'data/buttonTable.csv'); 
-  p1 = loadImage('assets/p1.png'); 
-   
-  p2 = loadImage('assets/p2.png'); 
-  
-  
 }
 
 
 function setup() {
   createCanvas(1280, 720);
   screenManager.setup(); 
-
-  p1.resize(150,240);
-  p2.resize(123,200); 
-  // phone = loadAnimation(p1, p1, p1, p1,p1,p1,p1,p2, p2, p2, p2, p2, p2); 
 
   buttonMap = new Map(); 
   b1 = new Clickable(); 
@@ -69,7 +58,6 @@ function setup() {
 function draw() {
   
   screenManager.draw();
-  // animation(phone,100,100); 
   if(screenManager.currentState.buttonList !== undefined){ 
     var buttonList =  screenManager.currentState.buttonList;
     for(let i = 0; i < buttonList.length; i++) {

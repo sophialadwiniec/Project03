@@ -94,7 +94,7 @@ class screenSetup  {
                     var img = loadImage(this.textTable.getString(i, "watch1")); 
                     var img_list = []; 
                     img_list.push(img); 
-                    // this.imageMap.set(screenName, img_list); 
+                    
                     if(this.textTable.getString(i, "watch2") !== "") {
                         img = loadImage(this.textTable.getString(i, "watch2")); 
                         img_list.push(img); 
@@ -104,6 +104,13 @@ class screenSetup  {
 
                 if(this.textTable.getString(i, "textW") !== ""){
                     screen.otherName = this.textTable.getString(i, "textW"); 
+                }
+
+                if(this.textTable.getString(i, "photo") !== ""){
+                    screen.end_image = loadImage(this.textTable.getString(i, "photo")); 
+                    screen.p_width = eval(this.textTable.getString(i, 'width')); 
+                    screen.p_height = eval(this.textTable.getString(i, 'height')); 
+                    
                 }
             }
 

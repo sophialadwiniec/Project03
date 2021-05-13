@@ -11,6 +11,9 @@ class Screen {
         this.img_list = []; 
         this.characterName = "You"; 
         this.otherName = ""; 
+        this.end_image; 
+        this.p_width; 
+        this.p_height; 
     }
 
     setup() {
@@ -43,6 +46,10 @@ class Screen {
             if(this.img_list.length > 1) {
                 text(this.otherName, 1100 , 175); 
             }
+        }
+        if(this.end_image !== undefined) {
+            //print(this.image); 
+            image(this.end_image, 830, 270, this.p_width, this.p_height); 
         }
     }
 }
